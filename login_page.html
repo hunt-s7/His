@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<head>
+    <meta name="google-signin-client_id" content="908227287982-s1aecgv67n7dh5l152vkccqb4ht4ifh5.apps.googleusercontent.com">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+
+body
+{
+  font-family: 'Raleway', sans-serif ;
+}
+
+.loginTitle{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logH2{
+  font-size: 0.9rem;
+  padding:10px;
+  text-align: center;
+}
+
+.loginSubtitle{
+  text-align: center;
+}
+
+form
+{
+    padding-left : 15px;
+    padding-right: 15px;
+}
+
+.rowSep{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-align:center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  justify-content: space-around;
+
+}
+
+.row{
+  width:100%;
+  display : flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.rowContent{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+label
+{
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding-bottom: 5px;
+    padding-left: 1px;
+}
+
+input{
+  height: 20px;
+  padding : 10px;
+  border: 1px solid #9e9e9e;
+}
+
+input:focus{
+    outline: none !important;
+    border-color: #4fbaf8;
+    box-shadow: 5px 10px 18px #D9EDEE;
+}
+
+.rowSub{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+button{
+  width: 100%;
+  height: 40px;
+}
+.rc_login{
+  width: 100%;
+  font-weight: 100;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rc_login div a{
+  color: rgb(240, 147, 71);
+}
+.signIn{
+    background-color: #D9EDEE;
+    letter-spacing: 2px;
+    font-weight: 500;
+    border: none;
+    font-size: 1.2rem;
+}
+.signIn:hover{
+  background-color: rgb(240, 147, 71);
+  color: white;
+  cursor: pointer;
+}
+
+</style>
+
+<body>
+    <script>
+
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      testAPI();  
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{437328660955765}',
+      cookie     : true,                     // Enable cookies to allow the server to access the session.
+      xfbml      : true,                     // Parse social plugins on this webpage.
+      version    : '{v9.0}'           // Use this Graph API version for this call.
+    });
+
+
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);        // Returns the login status.
+    });
+  };
+ 
+  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+
+
+  function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!--<a href="#" onclick="signOut();">Sign out</a>-->
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+
+
+  <div class="containerC">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v9.0&appId=1062210834224127&autoLogAppEvents=1" nonce="dwkbJHUE"></script>
+
+    <div class="loginTitle">
+        <h1 class="loginSubtitle">Login to Heerockbags</h1>
+        <div class="loginSubtitle logH2">LOGIN WITH YOUR SOCIAL MEDIA ACCOUNT</div>
+    </div>
+    <form method="POST" action="login_back.php">
+        <div class="rowSep">
+            <div class ="fg_login">
+              
+                <div class="fb-login-button" data-width="240px" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false">Sign in with Facebook</div>
+              
+                <div class="g-signin2" data-onsuccess="onSignIn" data-width="240px" data-height="40px" data-longtitle="true"></div>
+              
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="logH2">OR LOGIN WITH YOUR EMAIL ACCOUNT</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="rowContent">
+                <label>Email ID</label>
+                <input type="text" name="email">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="rowContent">
+                <label>Password</label>
+                <input type="password" name="pass">
+            </div>
+        </div>
+
+        <div class="row rowSub">
+            <div>
+                <button class="signIn">SIGN IN</button>
+            </div>
+        </div>
+
+        <div class="row rowSub">
+            <div class="rc_login">
+                <div>Existing Heerockbags customer? <a href="#">Recover password</a></div>
+                <div>New to Heerockbags? <a href="registration_page.html">Create Account</a></div>
+            </div>
+        </div>
+
+    </form>
+    </div>
+</body>
+
+</html>
+  
